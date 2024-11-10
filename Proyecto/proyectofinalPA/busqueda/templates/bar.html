@@ -1,0 +1,56 @@
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  margin-bottom: 40px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+li.right {
+  float: right;
+}
+
+li.right a {
+  color: white;
+}
+
+li.right span {
+  color: white;
+  margin-right: 10px;
+  line-height: 50px;
+}
+</style>
+
+<ul>
+  <li><a class="active" href="{% url 'principal' %}">Principal</a></li>
+  <li><a href="{% url 'hombre' %}">Hombre</a></li>
+  <li><a href="{% url 'mujer' %}">Mujer</a></li>
+  {% if user.is_authenticated %}
+    <li><a href="{% url 'carrito' %}">Carrito</a></li>
+    <li class="right"><a href="/cerrar-sesion/">Cerrar sesión</a></li>
+    <li class="right"><span>Hola, {{ user.username }}</span></li>
+  {% else %}
+    <li class="right"><a href="{% url 'registro' %}">Registrarse</a></li>
+    <li class="right"><a href="{% url 'login' %}" {% if user.is_authenticated %}disabled{% endif %}>Ingresar</a></li>
+  {% endif %}
+</ul>
+
+

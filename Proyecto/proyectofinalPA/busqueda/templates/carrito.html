@@ -1,0 +1,91 @@
+{% extends 'padre.html' %}
+
+{% block title %} 
+  Carrito de compras
+{% endblock title %}
+
+{% block contenido %}
+<style>
+    .producto-imagen {
+        max-width: 100%;
+        width: 200px;
+        height: 200px;
+    }
+    .carrito-list {
+        background: transparent;
+    }
+    .carrito-item{
+        max-width: 300px; 
+        max-height: 400px;
+        margin: 0 auto; 
+        padding: 20px; 
+        background-color: #c2bebe;
+        margin-right: 80px;
+        margin-left: 80px;
+        margin-bottom: 100px;
+        border: 2px solid black;
+        text-align: center;
+    }
+    .confirmar-compra{
+        margin-bottom: 120px;
+        margin-left: 80px;
+        width: 200px; 
+        height: 100px;
+        background-color: rgb(132, 130, 127);
+        font-size: 30px;
+        font-family:'Segoe UI Medium';
+        color:rgb(0, 0, 0) ;
+    }
+    .total {
+        border: 2px solid black;
+        text-align: center;
+        width: 600px;
+        position: absolute;
+        top: 13%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #f8f8f8;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+</style>
+<h1>Carrito de compras</h1>
+<ul class="carrito-list">
+    {% for item in carrito %}
+    <li>
+        <div class="carrito-item">
+            <img src="{{ item.producto.imagen }}" alt="{{ item.producto.nombre }}" class="producto-imagen">
+            <div class="carrito-info">
+                <h3>{{ item.producto.nombre }}</h3>
+                <p>Precio: ${{ item.producto.precio }}</p>
+                <form action="{% url 'eliminar_carrito' item.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+<div class="total">
+    Precio total: ${{ total }}
+</div>
+<form action="{% url 'confirmar_compra' %}" method="POST" onsubmit="return verificarCarrito()">
+    {% csrf_token %}
+    <button class="confirmar-compra" type="submit">Confirmar compra</button>
+</form>
+
+<script>
+    function verificarCarrito() {
+        var cantidadProductos = document.getElementsByClassName('carrito-item').length;
+
+        if (cantidadProductos === 0) {
+            alert('No hay productos en el carrito. Agrega al menos un producto.');
+            return false;
+        }
+        else {
+            alert('Compra exitosa');
+        }
+    }
+</script>
+{% endblock contenido %}

@@ -1,0 +1,64 @@
+{% extends 'padre.html' %}
+
+{% block title %} 
+  Productos de hombre
+{% endblock title %}
+
+{% block contenido %}
+    <style>
+        .producto-container {
+            max-width: 200px; 
+            max-height: 300px;
+            margin: 0 auto; 
+            padding: 20px; 
+            background-color: #c2bebe;
+            margin-right: 80px;
+            margin-left: 80px;
+            margin-bottom: 150px;
+            border: 2px solid black;
+        }
+        
+        .producto-container img {
+            max-width: 100%;
+            /* height: auto; */
+            width: 200px;
+            height: 200px;
+
+        }
+        
+        .producto-info {
+            margin-top: 10px; 
+            text-align: center;
+        }
+        
+        .producto-info h3, .producto-info p {
+            margin: 0;
+        }
+        
+        .productos-list {
+            background-color: transparent;
+            margin: 20;
+            
+        }
+
+    </style>
+
+    <ul class="productos-list">
+        {% for producto in productos %}
+        <li>
+            <div class="producto-container">
+                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                <div class="producto-info">
+                    <h3>{{ producto.nombre }}</h3>
+                    <p>Precio: ${{ producto.precio }}</p>
+                    <form action="{% url 'agregar_carrito' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                        <button type="submit">Agregar al carrito</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock contenido %}

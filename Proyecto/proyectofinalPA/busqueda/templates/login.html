@@ -1,0 +1,59 @@
+{% extends 'padre.html' %}
+
+{% block title %} 
+  Login
+{% endblock title %}
+
+{% block contenido %}
+<style>
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-form button[type="submit"] {
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login-form p {
+    text-align: center;
+    margin-top: 20px;
+    padding-right: 20px;
+}
+</style>
+
+{% if not user.is_authenticated %}
+    <div class="login-form">
+        <h2>Iniciar sesión</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    </div>
+{% else %}
+    <p>Ya has iniciado sesión.</p>
+{% endif %}
+{% endblock contenido %}

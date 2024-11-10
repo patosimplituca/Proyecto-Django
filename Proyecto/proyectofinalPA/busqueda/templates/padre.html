@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    {% include 'fondo.html' %}
+
+    <title>{% block title %} {% endblock title %}</title>
+
+   </head>
+   <body>
+
+    {% include 'bar.html' %}
+
+    {% block contenido %} {% endblock contenido %}
+
+    {% include 'pie.html' %}
+   </body>
+</html>

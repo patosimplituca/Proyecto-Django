@@ -1,0 +1,72 @@
+{% extends 'padre.html' %}
+
+{% block title %} 
+  Registro
+{% endblock title %}
+
+{% block contenido %}
+<style>
+.register-form ul{
+    background-color: #f1f1f1;
+}
+.register-form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.register-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register-form input[type="text"],
+.register-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.register-form button[type="submit"] {
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.register-form .alert {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.register-form p {
+    text-align: center;
+    margin-top: 20px;
+    padding-right: 20px;
+}
+</style>
+
+<div class="register-form">
+    <h2>Registro</h2>
+    {% if messages %}
+        <div class="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Registrarse</button>
+    </form>
+</div>
+{% endblock contenido %}
